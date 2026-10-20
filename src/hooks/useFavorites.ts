@@ -49,7 +49,8 @@ export function useFavorites() {
 
   useEffect(() => {
     const synchronizeFavorites = (event: StorageEvent) => {
-      if (event.key === FAVORITES_KEY) {
+      // A null key means another tab cleared storage for this origin.
+      if (event.storageArea === window.localStorage && (event.key === FAVORITES_KEY || event.key === null)) {
         setFavoriteIds(parseFavorites(event.newValue));
       }
     };

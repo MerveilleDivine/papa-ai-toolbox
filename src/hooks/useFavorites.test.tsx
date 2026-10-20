@@ -19,4 +19,42 @@ describe("favourites", () => {
     act(() => result.current.toggleFavorite("chatgpt"));
     expect(result.current.favoriteIds).toEqual([]);
   });
+
+  it("updates when another tab changes or clears local storage", () => {
+    const { result } = renderHook(() => useFavorites());
+
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", {
+        key: FAVORITES_KEY,
+        newValue: '["chatgpt"]',
+        storageArea: window.localStorage,
+      }));
+    });
+    expect(result.current.favoriteIds).toEqual(["chatgpt"]);
+
+    act(() => {
+      window.localStorage.clear();
+      window.dispatchEvent(new StorageEvent("storage", {
+        key: null,
+        newValue: null,
+        storageArea: window.localStorage,
+      }));
+    });
+    expect(result.current.favoriteIds).toEqual([]);
+  });
+
+  it("ignores unrelated session storage events", () => {
+    const { result } = renderHook(() => useFavorites());
+
+    act(() => result.current.toggleFavorite("chatgpt"));
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", {
+        key: FAVORITES_KEY,
+        newValue: null,
+        storageArea: window.sessionStorage,
+      }));
+    });
+
+    expect(result.current.favoriteIds).toEqual(["chatgpt"]);
+  });
 });
