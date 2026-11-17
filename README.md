@@ -1,14 +1,10 @@
-<p align="center">
-  <img src="./assets/readme-banner.svg" width="100%" alt="La boîte à outils IA de Papa" />
-</p>
-
-[![Checks](https://github.com/MerveilleDivine/papa-ai-toolbox/actions/workflows/build.yml/badge.svg)](https://github.com/MerveilleDivine/papa-ai-toolbox/actions/workflows/build.yml)
-
 # La boîte à outils IA de Papa
 
 I built this for my father, who wanted to try AI tools but needed somewhere to start. It is a French-language guide to 10 tools, with an example prompt, a practical tip, and a caution for each one.
 
 Users can search by task, filter by category, open a tool's guide, copy a starter prompt, and save favourites without creating an account.
+
+![Papa AI Toolbox running locally, showing its French-language home page](docs/screenshots/papa-ai-toolbox.jpg)
 
 ## Engineering decisions
 
@@ -44,7 +40,7 @@ npm test
 npm run build
 ```
 
-GitHub Actions runs the same checks on pushes and pull requests to `main`. Tests cover search, URL filters, favourites, cross-tab storage events, copying prompts, and detail routes. They use local data and do not need API keys.
+[GitHub Actions](https://github.com/MerveilleDivine/papa-ai-toolbox/actions/workflows/build.yml) runs the same checks on pushes and pull requests to `main`. Tests cover search, URL filters, favourites, cross-tab storage events, copying prompts, and detail routes. They use local data and do not need API keys.
 
 ## Code map
 
